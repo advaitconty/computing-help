@@ -1,6 +1,9 @@
 import claude
 import streamlit as st
+from streamlit_ace import st_ace
 import re
+
+st.session_state.loading = False
 
 def extract_question(text):
     global question, base_code, filename
@@ -20,12 +23,22 @@ st.write("Welcome to Computing Helpbot!.")
 if st.button("Ask a question"):
     loading = True
     if loading:
-        st.info("Loading...")
+        loading_info = st.info("Loading...")
     
     response = claude.get_question()
     extract_question(response)
     loading = False
+    loading_info.empty()
 
     st.text(question)
-    file = st.text_area(f"File: {filename}")
-    file = base_code
+    st.text(f"File: {filename}")
+    
+    code = st_ace(
+        value=base_code,
+        language="python",
+        theme="monokai",
+        keybinding="vscode",
+        font_size=14,
+        tab_size=4,
+        height=200
+    )
