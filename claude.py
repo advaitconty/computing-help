@@ -1,7 +1,10 @@
 import anthropic
 import confidential
+import pickle
 
 answer = ""
+
+pickle_file = "data.pkl"
 
 client = anthropic.Anthropic(
     api_key=confidential.ANTHROPIC_API_KEY,
@@ -19,6 +22,9 @@ def humanify(response):
             answer = block.text
 
     messages.append({"role": "assistant", "content": [{"type": "text", "text": answer}]})
+    
+    with open(pickle_file, "wb") as f:
+        pickle.dump(messages, f)
 
     return answer
 
@@ -40,6 +46,9 @@ def get_question():
 
 def follow_up(type, user_prompt):
     global messages
+
+    with open(pickle_file, "rb") as f:
+        pickle.load(f)
 
     modded_input = f"<type>{type}</type>\n<user>\n{user_prompt}\n</user>"
 
@@ -66,10 +75,10 @@ def follow_up(type, user_prompt):
 
 def check_answers(file):
     global messages
-    with open(file, "r") as file:
-        user_file = file.read()
+    
+    print(messages)
 
-    modded_input = f"<type>check</type>\n<user>Please check this user's file:\n<file>\n{user_file}\n</file>\n</user>"
+    modded_input = f"<type>check</type>\n<user>Please check this user's file:\n<file>\n{file}\n</file>\n</user>"
 
     messages.append(
         {
