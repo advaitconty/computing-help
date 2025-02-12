@@ -18,7 +18,7 @@ def extract_question(text):
 loading = False
 
 st.title("Computing Helpbot")
-st.write("Welcome to Computing Helpbot!.")
+st.write("Get some computing questions to solve")
 
 if st.button("Ask a question"):
     loading = True
@@ -40,5 +40,7 @@ if st.button("Ask a question"):
         keybinding="vscode",
         font_size=14,
         tab_size=4,
-        height=200
+        height=500
     )
+
+    print(code)

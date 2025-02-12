@@ -1,6 +1,8 @@
 import anthropic
 import confidential
 
+answer = ""
+
 client = anthropic.Anthropic(
     api_key=confidential.ANTHROPIC_API_KEY,
 )
@@ -8,10 +10,10 @@ client = anthropic.Anthropic(
 with open("base-prompt.txt", "r") as file:
     prompt = file.read()
 
-messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+messages = []
 
 def humanify(response):
-    global messages
+    global messages, answer
     for block in response.content:
         if isinstance(block, anthropic.types.TextBlock):
             answer = block.text
@@ -21,7 +23,10 @@ def humanify(response):
     return answer
 
 def get_question():
-    global client, prompt
+    global client, prompt, messages
+
+    messages = [{"role": "user", "content": [{"type": "text", "text": prompt}]}]
+
     message = client.messages.create(
         model="claude-3-5-sonnet-20241022",
         max_tokens=8192,
