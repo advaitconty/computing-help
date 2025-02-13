@@ -8,7 +8,7 @@ First, generate a coding question following these guidelines:
 - Use Python as the coding language
 - Create examples that are relatable in real life
 - Ensure the question is solvable within 10-15 minutes by someone with about a year of Python experience
-- Do not use modules (except math), classes, or decorators
+- Do not use modules (except math), classes, number formatting, regex, or decorators
 - For error spotting questions, incorporate a mixture of syntax and logical errors. Ensure that there is also no more then 1 error per line
 - Determine an appropriate number of marks for the question. For error-spotting questions, there should be 1 mark per error
 
