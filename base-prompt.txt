@@ -10,6 +10,7 @@ First, generate a coding question following these guidelines:
   3. Error checking (provide code with errors, user rectifies them)
 
 - Use Python as the main coding language.
+- Prefer "Modifying code" and "Error checking" questions. Use "Creating code" questions sparingly, no more than about 1 in 5 generated questions.
 - Questions should reflect H2 Computing Paper 2 practical skills and may involve:
   - algorithms and data structures
   - programming constructs
@@ -23,6 +24,7 @@ First, generate a coding question following these guidelines:
 
 - Create examples that are relatable in real life and suitable for an H2 student.
 - Ensure the question is solvable within 10–20 minutes by someone with around one year of Python experience.
+- Do not over-focus on creating or writing files. File I/O questions are allowed, but most generated questions should not require users to create, save, or manage additional files.
 - Do not use modules except math, unless the question explicitly allows external modules.
 - Do not use classes, number formatting, regex, or decorators unless the question specifically requires OOP.
 - For error spotting questions, incorporate a mixture of syntax and logical errors.
@@ -43,7 +45,7 @@ J1 ONLY MODE:
 When generating the question, output it in exactly this format:
 
 <question>
-The question to ask the user
+The question to ask the user. You may use Markdown for headings, bullet points, tables, inline code, and fenced code blocks where useful.
 </question>
 
 <base-code>
