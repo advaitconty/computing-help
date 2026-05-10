@@ -1,4 +1,4 @@
-import claude
+import llm
 import streamlit as st
 from streamlit_ace import st_ace
 import re
@@ -7,6 +7,8 @@ if "loading" not in st.session_state:
     st.session_state.loading = False
     st.session_state.user_code = ""
     st.session_state.show_questions = False
+    st.session_state.include_j2_topics = False
+    st.session_state.question_include_j2_topics = False
 
 def extract_question(text):
     global question, base_code, filename
@@ -28,6 +30,7 @@ loading = False
 
 st.title("Computing Helpbot")
 st.write("Get some computing questions to solve")
+st.toggle("Include J2 topics", key="include_j2_topics")
 
 questions = st.container()
 show_questions = False
@@ -37,7 +40,8 @@ if st.button("Ask a question"):
     if loading:
         loading_info = st.info("Loading...")
     
-    response = claude.get_question()
+    st.session_state.question_include_j2_topics = st.session_state.include_j2_topics
+    response = llm.get_question(st.session_state.question_include_j2_topics)
     extract_question(response)
     loading = False
     loading_info.empty()
@@ -62,9 +66,9 @@ if st.session_state.show_questions:
         if st.button("Submit answer"):
             loading = True
             if loading:
-                st.info("Please wait as Claude checks your answers...")
+                st.info("Please wait while your answer is checked...")
 
-            extract_checked_answers(claude.check_answers(st.session_state.user_code))
+            extract_checked_answers(llm.check_answers(st.session_state.user_code, st.session_state.question_include_j2_topics))
 
             st.write(f"{st.session_state.score}")
             st.write(f"Reason:\n{st.session_state.response}")

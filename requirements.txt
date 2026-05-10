@@ -1,4 +1,4 @@
-anthropic
+requests
 streamlit
 pandas
 streamlit-ace
