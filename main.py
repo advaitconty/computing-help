@@ -8,6 +8,8 @@ import sys
 import tempfile
 from pathlib import Path
 
+st.set_page_config(layout="wide")
+
 EXECUTION_TIMEOUT_SECONDS = 5
 DANGEROUS_IMPORTS = {
     "os",
